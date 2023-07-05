@@ -4,8 +4,19 @@ import ContactForm from '../ContactForm/ContactForm';
 import { ContactList } from '../ContactList/ContactList';
 import { Filter } from '../Filter/Filter';
 import { Layout } from '../Layout';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchContacts } from 'redux/operations';
+import { getError, getIsLoading } from 'redux/contactsSlice';
 
 export default function App() {
+  const dispatch = useDispatch();
+  const error = useSelector(getError);
+  const isLoading = useSelector(getIsLoading);
+
+  useEffect(() => {
+    dispatch(fetchContacts())
+  },[dispatch])
   return (
     <Layout>
       <GlobalStyle />
@@ -13,6 +24,7 @@ export default function App() {
       <ContactForm />
       <Title>Contacts</Title>
       <Filter />
+      {isLoading && !error && <b>Request in progress...</b>}
       <ContactList />
     </Layout>
   );
