@@ -9,7 +9,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { getContacts } from '../../redux/contactsSlice';
 import { addContact } from 'redux/operations';
-// import { nanoid } from 'nanoid';
+import { nanoid } from 'nanoid';
 export default function ContactForm() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
@@ -42,8 +42,8 @@ export default function ContactForm() {
       alert(`${name} is already in contacts`);
       return;
     }
-    // const id = nanoid();
-    dispatch(addContact({ name, number }));
+    const id = nanoid();
+    dispatch(addContact({ id, name, number }));
 
     setName('');
     setNumber('');
