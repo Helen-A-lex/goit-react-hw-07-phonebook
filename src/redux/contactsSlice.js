@@ -31,8 +31,8 @@ const contactSlice = createSlice({
     [addContact.fulfilled](state, action) {
       state.isLoading = false;
       state.error = null;
-      const { id, name, number } = action.payload;
-      state.items.push({ id, name, number });
+
+      state.items.push(action.payload);
     },
     [addContact.rejected]: handleRejected,
 
@@ -41,7 +41,7 @@ const contactSlice = createSlice({
       state.isLoading = false;
       state.error = null;
       const id = action.payload;
-      state.items.filter(contact => contact.id !== id);
+      state.items = state.items.filter(contact => contact.id !== id);
     },
     [deleteContact.rejected]: handleRejected,
   },
